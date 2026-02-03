@@ -6,9 +6,18 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Heading = {
+	depth: number;
+	slug: string;
+	text: string;
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+type Props = CollectionEntry<'blog'>['data'] & {
+	headings?: Heading[];
+};
+
+const { title, description, pubDate, updatedDate, heroImage, headings = [] } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3 && h.slug);
 ---
 
 <html lang="en">
@@ -19,6 +28,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				width: calc(100% - 2em);
 				max-width: 100%;
 				margin: 0;
+				overflow-x: clip;
 			}
 			.hero-image {
 				width: 100%;
@@ -31,11 +41,60 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				/* box-shadow: var(--box-shadow); */
 			}
 			.prose {
+				position: relative;
 				width: 720px;
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+			}
+			.toc {
+				position: fixed;
+				left: calc(50% + (720px / 2) + 2.5rem);
+				top: 9.5rem;
+				width: 280px;
+				max-height: calc(100vh - 11rem);
+				overflow: auto;
+				padding: 0.75rem 0.75rem 0.75rem 1rem;
+				border-left: 1px solid rgb(var(--gray-light));
+				font-size: 16px;
+				line-height: 1.4;
+			}
+			.toc-title {
+				margin: 0 0 0.5rem 0;
+				font-size: 14px;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				color: rgb(var(--gray));
+			}
+			.toc-list {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.toc-item {
+				margin: 0.35rem 0;
+			}
+			.toc-item.depth-3 {
+				margin-left: 0.9rem;
+				opacity: 0.95;
+			}
+			.toc a {
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+			}
+			.toc a:hover {
+				color: var(--accent);
+				text-decoration: underline;
+			}
+			.toc a[aria-current='location'] {
+				color: var(--accent);
+				font-weight: 700;
+			}
+			@media (max-width: 1200px) {
+				.toc {
+					display: none;
+				}
 			}
 			/* Center images in markdown content */
 			.prose :global(img) {
@@ -90,7 +149,71 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					<slot />
 				</div>
 			</article>
+			{
+				tocHeadings.length > 0 && (
+					<aside class="toc" data-toc="on-this-page" aria-label="目录">
+						<p class="toc-title">目录</p>
+						<ol class="toc-list">
+							{tocHeadings.map((h) => (
+								<li class={`toc-item depth-${h.depth}`}>
+									<a href={`#${h.slug}`} data-toc-link>
+										{h.text}
+									</a>
+								</li>
+							))}
+						</ol>
+					</aside>
+				)
+			}
 		</main>
 		<Footer />
+
+		{
+			tocHeadings.length > 0 && (
+				<script is:inline>
+					{`
+            (() => {
+              const toc = document.querySelector('[data-toc="on-this-page"]');
+              if (!toc) return;
+
+              const links = Array.from(toc.querySelectorAll('a[data-toc-link]'));
+              const items = links
+                .map((a) => {
+                  const id = (a.getAttribute('href') || '').replace('#', '');
+                  const el = id ? document.getElementById(id) : null;
+                  return el ? { a, el } : null;
+                })
+                .filter(Boolean);
+
+              if (!items.length) return;
+
+              const setActive = (activeLink) => {
+                for (const { a } of items) {
+                  if (a === activeLink) a.setAttribute('aria-current', 'location');
+                  else a.removeAttribute('aria-current');
+                }
+              };
+
+              const observer = new IntersectionObserver(
+                (entries) => {
+                  const visible = entries
+                    .filter((e) => e.isIntersecting)
+                    .sort((a, b) => (a.boundingClientRect.top || 0) - (b.boundingClientRect.top || 0));
+                  if (!visible.length) return;
+
+                  const topEl = visible[0].target;
+                  const match = items.find((x) => x.el === topEl);
+                  if (match) setActive(match.a);
+                },
+                { root: null, rootMargin: '-35% 0px -55% 0px', threshold: [0, 1] }
+              );
+
+              for (const { el } of items) observer.observe(el);
+              window.addEventListener('beforeunload', () => observer.disconnect(), { once: true });
+            })();
+          `}
+				</script>
+			)
+		}
 	</body>
 </html>

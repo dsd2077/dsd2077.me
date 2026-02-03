@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "astro build && node -e \"const fs=require('node:fs'); const path=require('node:path'); const candidates=['dist/blog/2025/mcp-servers-for-devops/index.html','dist/blog/2025/10x-engineer/index.html']; const existing=candidates.map(p=>path.resolve(p)).find(p=>fs.existsSync(p)); if(!existing) { console.error('No built blog HTML found. Ran build but expected one of: '+candidates.join(', ')); process.exit(1); } const html=fs.readFileSync(existing,'utf8'); if(!html.includes('data-toc=\\\"on-this-page\\\"')) { console.error('TOC not found in '+existing); process.exit(1); } console.log('TOC found in '+existing);\""
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
