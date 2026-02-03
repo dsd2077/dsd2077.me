@@ -36,6 +36,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
 			}
+			/* Center images in markdown content */
+			.prose :global(img) {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 100%;
+				height: auto;
+			}
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;

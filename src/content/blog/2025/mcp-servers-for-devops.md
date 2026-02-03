@@ -18,9 +18,8 @@ MCP（Model Context Protocol）的出现，为这一问题提供了一种新的�
 在这一方向上，Chaterm 作为一款开源的 AI Terminal 工具，已经率先支持 MCP 协议，为“AI + Terminal”的 DevOps 工作模式提供了一个可落地的实践案例。
 
 
-
 ### 什么是 MCP 服务器？
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764638650256-33acdde9-cba4-4e1b-9489-851c229d5167.png)
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/mcp.png)
 **MCP** 是一种开源协议标准，旨在为 AI 应用程序提供与外部系统连接的统一方式。通过 MCP，诸如 Claude 或 ChatGPT 等 AI 应用能够安全、标准化地接入各类数据源（如本地文件、数据库）、工具（如搜索引擎、计算器）及工作流程（如定制化提示链），从而扩展其信息获取与任务执行能力。
 
 可以将其类比为 **AI 领域的“USB-C 端口”**：正如 USB-C 为电子设备提供了通用的物理连接标准，MCP 为 AI 应用与外部服务之间的交互定义了通用的通信协议与数据交换规范。这一定位使其成为构建模块化、可扩展 AI 智能体的关键基础设施。
@@ -52,8 +51,7 @@ MCP（Model Context Protocol）的出现，为这一问题提供了一种新的�
 #### 基础设施与云服务
 **1、AWS 平台 MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：使用AWS MCP 查找S3桶命... USER-2000823 使用AWS MCP 查找S3 桶命名的最佳实践 SHUDONG_DENG@INTSIG.NET 我将使用AWSMCP工具来查找S3桶命名的最佳实践.让我先搜索相关的AWS文档. 2000823 MCP SERVER: USER_2000823 AWSLABS.AWS-DOCUMENTATION-MCP-SERVER SHUDONG DENG@INTSIG.NET TOOL: SEARCH_DOCUMENTATION PARAMETERS: _2000823 A DENG@INTSIG.NET SEARCH_PHRASE: S3 BUCKET NAMING RULES BEST PRACTICES SHUDONG. 5 LIMIT: OUTPUT LINES USER-2000823 SHUDONG_DENG@TNTELGW SHUDONG_DENG@INTSIG.NE 很好,我找到了相关的AWSS3文档.让我读取最相关的文档来获取详细的S3桶命名规则和最佳实践. MCP SERVER: USER 2000823 AWSLABS.AWS-DOCUMENTATION-MCP-SERVER SHUDONG_DENG@INTSIG.NET TOOL: READ. D_DOCUMENTATION PARAMETERS: HTEPS://DOES.ONS.AMAZON.COM/AMAZONS3/LATEST/USERGUIDE/BUCKETNMINGRULES,HTML URL: SHUDONG_DENG@INTSIG.NET 77 LINES OUTPUT -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764212116099-0c525dfa-4786-4246-b7bc-ea79ab386251.png)
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/aws.png)
 
 AWS官方提供了**一整套**专门的 MCP 服务器，让AI助手可以直接访问**AWS文档**、**最佳实践**和**云资源**。通过这些服务器，AI 应用能够执行常见的云基础设施管理任务，例如使用 AWS CLI 或 Cloud Control API 操作资源、管理 EC2 实例、ECS/EKS 容器集群，或查询 IAM、RDS、S3 等服务。AWS 官网上指出，MCP 服务器显著提升了模型输出质量和准确性，因为模型能在上下文中获得最新的文档和服务信息。此外，AWS MCP服务器还将常见的基础设施即代码（如CDK、Terraform）流程封装为AI可调用的工具，提高了自动化程度。
 
@@ -73,8 +71,7 @@ AWS官方提供了**一整套**专门的 MCP 服务器，让AI助手可以直接
 
 **2、HashiCorp Terraform MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：DEVELOPER / TERRAFORM / TERRAFORM MCP SERVER ON THIS PAGE: TERRAFORM MCP SERVER OVERVIEW TERRAFORM MCP SERVER OVERVIEW LEARN ABOUT THE TERRAFORM MODEL CONTEXT PROTOCOL (MCP) SERVER AND HOW IT WHAT IS THE TERRAFORM MCP SERVER? CAN HELP YOU WRITE TERRAFORM CONFIGURATION USING AI. HOW IT WORKS DEPLOYMENT ARCHITECTURE THE TERRAFORM MODEL CONTEXT PROTOCOL (MCP) SERVER ENHANCES AL MODELS WITH REAL-TIME ADDITIONAL RESOURCES ACCESS TO CURRENT TERRAFORM PROVIDER DOCUMENTATION,MODULES,AND POLICIES FROM THE TERRAFORM REGISTRY. THIS ENSURES AL-GENERATED TERRAFORM CONFIGURATIONS USE ACCURATE, UP-TO- DATE INFORMATION RATHER THAN POTENTIALLY OUTDATED TRAINING DATA. NOTE THIS FEATURE IS CURRENTLY IN BETA.DO NOT USE BETA FUNCTIONALITY IN PRODUCTION ENVIRONMENTS WHAT IS THE TERRAFORM MCP SERVER? THE MODEL CONTEXT PROTOCOL (MCP) IS AN OPEN STANDARD THAT ENABLES AL MODELS TO SECURELY CONNECT WITH EXTERNAL TOOLS, APPLICATIONS, AND DATA SOURCES.MCP ALLOWS AL MODELS TO ACCESS INFORMATION BEYOND THEIR TRAINING DATA, PROVIDING MORE CURRENT AND ACCURATE RESPONSES. THE TERRAFORM MCP SERVER IMPLEMENTS THIS PROTOCOL SPECIFICALLY FOR TERRAFORM DEVELOPMENT, OFFERING SEVERAL KEY BENEFITS: REAL-TIME ACCURACY:ACCESS CURRENT PROVIDER DOCUMENTATION INSTEAD OF RELYING ON POTENTIALLY OUTDATED TRAINING DATA TERRAFORM REGISTRY INTEGRATION:DIRECT INTEGRATION WITH PUBLIC TERRAFORM REGISTRY APISTRY APIS FOR -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764212480077-d13cce48-edb2-4e15-b55b-3d3d447f1ad0.png)
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/terraform.png)
 
 HashiCorp官方发布的Terraform MCP服务器，为Terraform配置管理引入了MCP支持。该服务器让AI模型实时访问Terraform Registry中提供商的文档、模块和策略，从而生成准确的Terraform配置，而不是依赖过时的训练数据。HashiCorp文档指出，Terraform MCP服务器集成了公共Registry的API，支持**查找模块输入输出**、**引用Sentinel策略**，并且可以**管理Terraform云（HCP/TFE）组织和工作区**。
 
@@ -88,8 +85,7 @@ HashiCorp官方发布的Terraform MCP服务器，为Terraform配置管理引入�
 
 **3、Pulumi 平台 MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：PULUMI MODEL CONTEXT PROTOCOL SERVER THE PULUMI MODEL CONTEXT PROTOCOL (MCP) SERVER ENABLES AL-POWERED CODING ASSISTANTS TO ACCESS YOUR PULUMI CLOUD RESOURCES AND DELEGATE INFRASTRUCTURE TASKS TO PULUMI NEO. THIS INTEGRATION ALLOWS YOU TO QUERY YOUR CLOUD INFRASTRUCTURE, SEARCH FOR RESOURCES, AND LAUNCH AUTOMATED INFRASTRUCTURE WORKFLOWS-ALL FROM WITHIN THE AL ASSISTANT OF YOUR CHOICE. WHAT IS THE PULUMI MCP SERVER? THE MODEL CONTEXT PROTOCOL (MCP) IS A SPECIFICATION THAT ALLOWS LANGUAGE MODELS TO INTERACT WITH EXTERNAL TOOLS AND DATA SOURCES IN A STRUCTURED WAY. PULUMIS MCP SERVERVER IMPLEMENTATION PROVIDES AL ASSISTANTS WITH THE ABILITY TO QUERY YOUR PULUMI CLOUD STACKS AND THEIR RESOURCES SEARCH ACROSS ALL CLOUD RESOURCES IN YOUR ORGANIZATION USING ADVANCED QUERIES ACCESS THE PULUMI REGISTRY FOR RESOURCE INFORMATION,PROPERTIES, AND DOCUMENTATION GET POLICY VIOLATION REPORTS FOR YOUR INFRASTRUCTURE MANAGE ORGANIZATION MEMBERS AND THEIR ACCESS DELEGATE COMPLEX INFRASTRUCTURE TASKS TO PULUMINEO FOR AUTOMATED EXECUTION GENERATE INFRASTRUCTURE CODE USING REGISTRY TOOLS AND BEST PRACTICES -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764208331414-ba8eccb7-4588-422c-8e24-1e727eee0ca9.png)
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/pulumi.png)
 
 Pulumi推出了MCP服务器，使得AI助手能够访问Pulumi云（Pulumi Cloud）中的资源并委派任务给Pulumi Neo自动执行。Pulumi文档说明，该MCP服务器允许AI**查询Pulumi组织中的Stack及其资源**，**跨组织搜索云资源**，并**使用Pulumi Registry中的信息生成和管理基础设施代码**。
 
@@ -103,8 +99,7 @@ Pulumi推出了MCP服务器，使得AI助手能够访问Pulumi云（Pulumi Cloud
 
 **4、Kubernetes  MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为： -->
-![](https://cdn.nlark.com/yuque/0/2025/png/62981810/1764217825796-e51c9eef-a90b-4f68-8d86-98f2fcf285f6.png)
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/kubernetes.png)
 
 Kubernetes  MCP 服务器由社区开发实现，允许用户使用自然语言命令管理和监控Kubernetes环境，支持执行 `kubectl` 的核心操作，如创建/删除Pod、服务和Deployment，诊断集群健康等。它还内置了安全连接和RBAC验证机制，确保AI访问符合K8s权限策略。
 
@@ -131,8 +126,8 @@ Docker Hub MCP 服务器将 Docker Hub 的海量镜像目录通过 MCP 协议暴
 #### 代码与 CI/CD
 **6、GitHub 平台 MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：将我FORK的个人CHATERM仓库与官方仓库同步 将我FORK的个人CHATERM仓库与官方仓库同步 我需要帮助您将FORK的个人CHATERM仓库与官方仓库同步.让我先获取您的GITHUB信息.然后查看您的TORK情况. MCP SERVER: GITHUB TOOL: GET_ME OUTPUT 现在让我搜索您的CHATERM仓库,看看FORK的情况: MCP SERVER: GITHUB TOOL: SEARCH_REPOSITORIES PARAMETERS: USER:DSD2077  CHATERM QUENY MINIMAL_OUTPUT:FALSE OUTPUT 1 FINOS TOTAL_COUNT": 0,"INCOMPLETE RESULTS":FALSE C 开始新任务 -->
-![](https://cdn.nlark.com/yuque/0/2025/jpeg/34471378/1764210424784-12eb32b6-e3f9-4546-b402-6e6f2051d91c.jpeg)
+
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/github.png)
 
 GitHub官方推出了MCP服务器，将AI应用直接接入GitHub平台，使AI能**读取仓库文件**、**管理Issue**与**Pull Request**、**分析代码质量**、**自动化工作流**等。该服务器可托管于GitHub端（远程MCP）或本地运行，支持VS Code（Copilot Agent）、Claude Desktop、Cursor等客户端一键接入。GitHub文档指出，通过MCP，AI助手可以浏览仓库结构、搜索历史提交、执行代码审查、监控GitHub Actions流水线并获得CI/CD反馈。
 
@@ -150,8 +145,8 @@ Gitlab同样提供了响应的MCP服务，不再赘述。
 
 **7、Jenkins 平台 MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：MCP SERVER VERSION: DEPENDENCIES DOCUMENTATION HEALTH SCORE RELEASES ISSUES 0.116.V335308 THE MCP (MODEL CONTEXT PROTOCOL) SERVERPLUGIN FOR JENKINS IMPLENTS THE SERVER-SIDE COMPONENT ONTEXT RELEASED:3 WEEKS AG REQUIRES  JENKINS 2.4  PROTOCOL  THIS PLUGIN ENABLES JENKINS TO AN MCP SUCH MCP SERVER,    ONTEXT,   OND CAPABITTIENTS, SUC AS LLM-POWERED APPLICATIONS OR IDES. ID:MCP-SERVER NO USAGE DATA FEATURES MCP SERVER IMPLEMENTATION: IMPLEMENTS THE SERVER-SIDE OF THE MODEL CONTEXT PROTOCOL. LINKS JENKINS INTEGRATION: EXPOSES JENKINS FUNCTIONALITIES AS MCP TOOLS AND RES. GITHUB EXTENSIBLE ARCHITECTURE; ALLONS EASY EXTENSION OF MCP CAPABLLITES THROUGH THE NCPSERVEREXTENSION INTE OPEN ISSUES(GITHUB) REPORT AN ISSUE (GITH KEY COMPONENTS EXTENSION POINTS 1. ENDPOINT; THE MAIN ENTRY POINT  FOR MESSAGE ROUTION, HANDING MCP TRANSPORT OONNECTIONS AND MESSAG: JAVADOC 2, PEFAULTMCPSERVER- IMPLEMENTS HCPSERVERVERVERVERVERION, PROVIDING DEFAUT TOR INTERACTINS JENKINS AN BUILDS. LABELS 3. MCPTOOLWRAPPER; WRAPS JAVA METHODS AS MCP TOOLS, HANDLING PARAMETER PARSING AND RESUIT FORMATTING: AI 4.MCPSERVEREXTENSION:INTERFACE FOR EXTENDING MCP SERVER CAPABILITIES. MCP MCP SDK VERSION MAINTAINERS THIS MCP SERVER IS BASED ON THE MCP LAVE SOK VERSLON O131.WHICH INDLEMENTS THE MCP SPECION VERSION 2 OLIVIER LAMY YI GONG GETTING STARTED HELP US IMPROV PREREQUISITES TO PROPOSE A CHANGE JENKINS(VERSION 2.479 OR HIGHER) REQUEST TO THE PLUGIN CONFIGURATION PREVIOUS SECUR THE MCP SERVER PIUGIN AUTONATICALLY SETS UP NECESSARY ENDPOINTS AND TOOLS UPON INSTALLATING NO ADDIT -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764213383486-d00cb00d-17cf-46de-bbc6-d4e2e952daa6.png)
+
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/jenkins.png)
 
 Jenkins社区推出了MCP Server插件，使Jenkins本身具备MCP服务器能力。安装该插件后，Jenkins会自动将其作业、构建、日志等功能作为MCP工具暴露给AI助手。Jenkins插件页面说明：“MCP Server插件实现了MCP协议的服务端，使Jenkins能作为MCP服务器，为AI客户端提供上下文、工具和功能”。这意味着AI可以通过自然语言查询构建状态、触发构建任务或获取测试结果等，所有操作都由Jenkins执行并反馈。
 
@@ -167,8 +162,8 @@ Jenkins社区推出了MCP Server插件，使Jenkins本身具备MCP服务器能�
 #### 可观测性（Observability）
 8、Grafana MCP 服务器
 
-<!-- 这是一张图片，ocr 内容为：查看JUICEFS算法服务IO延迟... USER 2000823 使用GRAFANA查看过去一个小时JUICEFS-ALGORITHM的IO延迟 SHUDONG_DENG@INTSIG.NET 我将帮助您使用GRAFANA查看过去一个小时JUICEFS-ALGORITHM的LO延迟.首先让我列出可用的数据源. MCP SERVER:2000823 USER  2000823 DENG:LENG@INTSIG.NET GRAFANA SHUDONG_DENG@INTSIG.NET TOOL: LIST_DATASOURCES USER 2000823 OUTPUT I LINES CHUDONG-DENG@INTSIG.NET 我看到了可用的致装想列表.让我使用数认的PRONATHEUS数据原来查找UCEFS-L9ORTHNBBORTHNBR.我会搜索ULCESS相关的指标名标 SHUDONG-DENG MCP SERVER: GRAFANA TOOL: LIST_PROMETHEUS_METRIC_NAMES USER 2000823 SHUDONG_DENG@INTSIG.NET PARAMETERS: DATASOURCEUID:0000000001 JUICEFS.* REGEX: 50 LIMIT: USOR_ USER_2000823 CHUDONG DENG@INTSIG.NET SHUDONG_DENG@INTSIG.NET OUTPUT LINES -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764215932268-2a9328c7-f2d2-409a-abfc-1d4dd9bd0a56.png)  
+
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/grafana.png)  
 Grafana MCP 服务器是 Grafana 官方推出的 MCP 服务，允许 LLM 通过 MCP 协议访问 Grafana 仪表板及其生态系统。它使 AI 能够以自然语言方式查询和管理 Grafana 中的可视化资源。
 
 + **功能与适用场景**：支持对 Grafana 仪表板和数据源进行搜索、检索和修改。例如，可搜索和获取仪表板摘要或详细信息，创建/更新仪表板，列出和获取数据源（支持 Prometheus、Loki 等），执行 Prometheus/Loki 查询获取指标和日志，管理 Grafana 报警规则、事件和 Sift 日志调查等。适用于需要将监控数据和可视化资源引入智能运维或自动化分析流程的场景。
@@ -182,8 +177,8 @@ Grafana MCP 服务器是 Grafana 官方推出的 MCP 服务，允许 LLM 通过 
 
 9、**Sentry MCP 服务器**
 
-<!-- 这是一张图片，ocr 内容为：修复SENTRY问题6811213890 USER 2000823 SHUDONG_AENG SHUDONG_DENG@INTSIG.NET MCP SERVER: SENTRY TOOL: ER 2000823 USER_2000823 DENG@INTSIG.NET FIND_PROJECTS SHUDONG_DENG@INTSIG.NET PARAMETERS: ORGANIZATIONSLUG: UESTC-HT HTTPS://DE.SENTRY.IO REGIONURL: USER 2000823 SHUDONG_DENG@INTSIG.NET 2 LINES OUTPUT #PROJECTS IN***UESTC-HT** **ELECTRON** USER 2000823 USER 2000823 DONA  DENG@INTSIG.NE SHUDONG_DENG@INTSIG.NET 很好!我看到您的组织中有一个 ELECTRON 项目.让我检查这个项目中的最新问题: MCP SERVER: SENTRY USER 2000823 TOOL: SHUDONG,DENG@INTSIG.NET SEARCH_ISSUES PARAMETERS: UESTC-HT ORGANIZATIONSLUG: USER_2000823 HTTPS://DE.SENTRY.IO IONALURL: SHUDONG_DENG@INTSIG.NET PROJECTSLUGORID: ELECTRON NATURALLANGUAGEQUERY: UNRESOLVED ISSUES FROM THE LAST WEEK 10 -->
-![](https://cdn.nlark.com/yuque/0/2025/png/34471378/1764217991595-9053e587-7389-4bf0-a480-2fbe4739aaae.png)  
+
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/sentry.png)  
 Sentry 的 MCP 服务器通过模型上下文协议（MCP）为接入系统提供 Sentry 的完整问题和错误上下文。它允许 AI 助手和开发工具安全地访问 Sentry 数据，适用于将 Sentry 的错误监控和调试信息集成到智能工作流中的场景。
 
 + **功能与适用场景**：支持通过自然语言查询 Sentry 事件，如访问 Sentry 中的错误和问题、搜索特定文件中的错误、查询项目和组织信息、列出/创建项目的 DSN，以及执行自动修复（autofix）并获取状态等。适用于需要将 Sentry 错误日志和崩溃报告上下文引入 AI 辅助开发或自动化运维流程的场景。
@@ -197,8 +192,7 @@ Sentry 的 MCP 服务器通过模型上下文协议（MCP）为接入系统提�
 #### 数据库 ( Database)
 10、MongoDB MCP 服务器
 
-<!-- 这是一张图片，ocr 内容为： -->
-![](https://cdn.nlark.com/yuque/0/2025/png/62981810/1764233461285-d63162bc-06af-4bf8-a627-debc2a9d5764.png)  
+![](https://cdn.jsdelivr.net/gh/dsd2077/blog-site@63f334f/src/assets/images/2025/mcp-servers-for-devops/mongodb.png)  
 MongoDB 官方提供的 MCP 服务器（公测版）允许通过 MCP 协议将 MongoDB 数据库（Atlas、Community 或 Enterprise）与 AI 工具连接。它使 AI 能够自然语言方式查询文档数据和执行管理操作。
 
 + **功能与适用场景**：支持数据探索（例如“显示 users 集合的架构”或“查找活跃用户”）、数据库管理（如创建只读用户、列出网络访问规则）以及上下文感知的查询生成（AI 描述所需数据并自动生成 MongoDB 查询及应用代码）等。适用于通过智能助手完成数据库查询、文档分析和数据库运维任务的场景。
@@ -238,7 +232,7 @@ MongoDB 官方提供的 MCP 服务器（公测版）允许通过 MCP 协议将 M
 3. <font style="color:rgb(60, 60, 67);">将下列配置添加到文件中，根据实际情况对配置中的相应参数进行调整。</font>
 4. <font style="color:rgb(60, 60, 67);">保存后，Chaterm 会自动读取并尝试连接服务器。</font>
 
-```plain
+```json
 {
   "mcpServers": {
     "github": {
@@ -313,8 +307,3 @@ MongoDB 官方提供的 MCP 服务器（公测版）允许通过 MCP 协议将 M
   }
 }
 ```
-
-
-
-### 
-## 
